@@ -117,6 +117,12 @@
             transform: translateY(-4px);
         }
 
+        .video-card iframe {
+            width: 100%;
+            height: 200px;
+            border: none;
+        }
+
         .video-card video {
             width: 100%;
             display: block;
@@ -411,6 +417,43 @@
                 "category": "Music - Pop",
                 "views": "892K",
                 "trending": true
+            },
+            {
+                "id": "7",
+                "title": "Personal Video 1",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/IMG_4044.mov",
+                "description": "Personal video recording",
+                "category": "Personal",
+                "views": "12",
+                "trending": false
+            },
+            {
+                "id": "8",
+                "title": "Personal Video 2",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/IMG_4045.mov",
+                "description": "Personal video recording",
+                "category": "Personal",
+                "views": "8",
+                "trending": false
+            },
+            {
+                "id": "9",
+                "title": "Sample Video (External)",
+                "url": "https://www.w3schools.com/html/mov_bbb.mp4",
+                "description": "Sample video from external source (W3Schools)",
+                "category": "Demo",
+                "views": "45",
+                "trending": false
+            },
+            {
+                "id": "10",
+                "title": "Dailymotion Video",
+                "type": "embed",
+                "embedUrl": "https://www.dailymotion.com/embed/video/x9co0zo",
+                "description": "Video from Dailymotion",
+                "category": "External",
+                "views": "128",
+                "trending": false
             }
         ];
 
@@ -450,9 +493,18 @@
             const videoGrid = document.querySelector('.video-grid');
             videoGrid.innerHTML = filteredVideos.map(video => `
                 <div class="video-card">
-                    <video controls preload="metadata" onplay="addToHistory('${video.id}')">
-                        <source src="${video.url}" type="video/mp4">
-                    </video>
+                    ${video.type === 'embed' ? 
+                        `<iframe src="${video.embedUrl}" 
+                            frameborder="0" 
+                            width="100%" 
+                            height="200"
+                            allow="autoplay; fullscreen"
+                            allowfullscreen>
+                        </iframe>` :
+                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')">
+                            <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
+                        </video>`
+                    }
                     <div class="video-info">
                         <h3>${video.title}</h3>
                         <p>${video.description}</p>
@@ -475,9 +527,18 @@
             const trendingVideos = videos.filter(v => v.trending);
             trendingGrid.innerHTML = trendingVideos.map(video => `
                 <div class="video-card">
-                    <video controls preload="metadata" onplay="addToHistory('${video.id}')">
-                        <source src="${video.url}" type="video/mp4">
-                    </video>
+                    ${video.type === 'embed' ? 
+                        `<iframe src="${video.embedUrl}" 
+                            frameborder="0" 
+                            width="100%" 
+                            height="200"
+                            allow="autoplay; fullscreen"
+                            allowfullscreen>
+                        </iframe>` :
+                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')">
+                            <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
+                        </video>`
+                    }
                     <div class="video-info">
                         <h3>${video.title}</h3>
                         <p>${video.description}</p>
@@ -504,9 +565,18 @@
                 const video = videos.find(v => v.id === videoId);
                 return `
                     <div class="video-card">
-                        <video controls preload="metadata">
-                            <source src="${video.url}" type="video/mp4">
-                        </video>
+                        ${video.type === 'embed' ? 
+                            `<iframe src="${video.embedUrl}" 
+                                frameborder="0" 
+                                width="100%" 
+                                height="200"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen>
+                            </iframe>` :
+                            `<video controls preload="metadata">
+                                <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
+                            </video>`
+                        }
                         <div class="video-info">
                             <h3>${video.title}</h3>
                             <div class="video-meta">
@@ -527,9 +597,18 @@
                 const video = videos.find(v => v.id === videoId);
                 return `
                     <div class="video-card">
-                        <video controls preload="metadata">
-                            <source src="${video.url}" type="video/mp4">
-                        </video>
+                        ${video.type === 'embed' ? 
+                            `<iframe src="${video.embedUrl}" 
+                                frameborder="0" 
+                                width="100%" 
+                                height="200"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen>
+                            </iframe>` :
+                            `<video controls preload="metadata">
+                                <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
+                            </video>`
+                        }
                         <div class="video-info">
                             <h3>${video.title}</h3>
                         </div>
@@ -543,9 +622,18 @@
                 const video = videos.find(v => v.id === videoId);
                 return `
                     <div class="video-card">
-                        <video controls preload="metadata">
-                            <source src="${video.url}" type="video/mp4">
-                        </video>
+                        ${video.type === 'embed' ? 
+                            `<iframe src="${video.embedUrl}" 
+                                frameborder="0" 
+                                width="100%" 
+                                height="200"
+                                allow="autoplay; fullscreen"
+                                allowfullscreen>
+                            </iframe>` :
+                            `<video controls preload="metadata">
+                                <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
+                            </video>`
+                        }
                         <div class="video-info">
                             <h3>${video.title}</h3>
                         </div>
