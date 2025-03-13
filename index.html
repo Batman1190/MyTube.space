@@ -4,251 +4,593 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyTube</title>
-    <link rel="stylesheet" href="styles.css">
-    <meta name="description" content="MyTube - A video sharing platform">
-    <meta name="keywords" content="video, sharing, MyTube, streaming">
     <style>
-        /* Base styles */
         body {
             margin: 0;
             padding: 0;
+            background: #0f0f0f;
+            color: white;
             font-family: Arial, sans-serif;
-            background: #2d2d2d;
-            color: #e0e0e0;
         }
 
-        /* Update nav and button styles */
         nav {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0;
             padding: 12px 24px;
-            background: #333;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            position: fixed;
+            background: #0f0f0f;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
+            z-index: 100;
         }
 
         .logo h1 {
-            color: #ff0000;
-            font-size: 1.8rem;
-            font-weight: bold;
             margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            color: white;
+        }
+
+        .logo span {
+            color: #ff4444;
         }
 
         .search-bar {
             display: flex;
             gap: 10px;
-            flex: 1;
         }
 
         .search-bar input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 8px;
             border-radius: 4px;
-            min-width: 0;
+            border: none;
+            background: #1f1f1f;
+            color: white;
         }
 
         .search-bar button {
-            padding: 10px 20px;
-            background: #1a73e8;
-            color: white;
-            border: none;
+            padding: 8px 16px;
             border-radius: 4px;
+            border: none;
+            background: #ff4444;
+            color: white;
             cursor: pointer;
-            white-space: nowrap;
         }
 
         .nav-links {
             display: flex;
-            align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
             padding: 8px 16px;
-            border-radius: 4px;
-            transition: background-color 0.2s;
+            border-radius: 20px;
+            transition: background-color 0.3s;
         }
 
-        .nav-links a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: rgba(255,255,255,0.1);
         }
 
-        .content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            margin-top: 80px;
+        .coffee-btn {
+            background: #ffdd00 !important;
+            color: #000 !important;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: transform 0.2s !important;
+        }
+
+        .coffee-btn:hover {
+            transform: scale(1.05);
+            background: #ffdd00 !important;
+        }
+
+        .coffee-btn span {
+            font-size: 20px;
         }
 
         .video-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
 
         .video-card {
-            background: #333333;
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 
-                0 4px 8px rgba(0,0,0,0.3),
-                inset 0 1px 1px rgba(255,255,255,0.1);
-            margin-bottom: 24px;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-top: 56.25%;
-            background: #000000;
+            background: #1f1f1f;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 
-                0 8px 16px rgba(0,0,0,0.5),
-                inset 0 1px 3px rgba(255,255,255,0.2);
-            transform: perspective(1000px) rotateX(2deg);
-            transition: transform 0.3s ease;
-            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
         }
 
-        .video-wrapper:hover {
-            transform: perspective(1000px) rotateX(0deg);
+        .video-card:hover {
+            transform: translateY(-4px);
         }
 
-        .video-wrapper video {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .video-card video {
             width: 100%;
-            height: 100%;
-            border: none;
-            background: #000000;
+            display: block;
+            background: black;
+        }
+
+        .video-info {
+            padding: 12px;
         }
 
         .video-info h3 {
-            color: #ffffff;
-            font-size: 1rem;
             margin: 0 0 8px 0;
-            line-height: 1.4;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .video-info p {
+            margin: 0 0 8px 0;
+            color: #aaa;
+            font-size: 14px;
         }
 
         .video-meta {
-            color: #aaaaaa;
-            font-size: 0.9rem;
-            line-height: 1.4;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .category {
+            background: #ff4444;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
         }
 
         .disclaimer {
-            padding: 20px;
-            background: #333;
-            color: #e0e0e0;
-            text-align: center;
-            font-size: 0.9rem;
-            border-top: 1px solid #444;
+            background: #1f1f1f;
+            padding: 40px 20px;
+            margin-top: 40px;
         }
 
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                padding: 12px;
-            }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
 
-            .search-bar {
-                width: 100%;
-                margin: 10px 0;
-            }
+        .footer-section h3 {
+            color: #ff4444;
+            margin: 0 0 16px 0;
+        }
 
-            .nav-links {
-                width: 100%;
-                justify-content: center;
-            }
+        .footer-section p {
+            color: #aaa;
+            margin: 8px 0;
+            font-size: 14px;
+        }
 
-            .content {
-                padding: 10px;
-            }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #666;
+            font-size: 12px;
+        }
 
-            .video-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
+        .section {
+            display: none;
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-            .video-info h3 {
-                font-size: 1rem;
-            }
+        .section.active {
+            display: block;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-header p {
+            color: #aaa;
+            margin: 8px 0 0 0;
+        }
+
+        .library-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .library-section {
+            background: #1f1f1f;
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .library-section h3 {
+            margin: 0 0 16px 0;
+            color: #ff4444;
+        }
+
+        .video-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .empty-message {
+            color: #666;
+            text-align: center;
+            padding: 32px;
+        }
+
+        .clear-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 16px;
+        }
+
+        .clear-btn:hover {
+            background: #ff2222;
+        }
+
+        .trending-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                <h1>MyTube</h1>
-            </div>
-            <div class="search-bar">
-                <input type="text" placeholder="Search videos..." aria-label="Search videos">
-                <button>Search</button>
-            </div>
-            <div class="nav-links" id="navLinks">
-                <a href="#">Home</a>
-                <a href="#">Trending</a>
-                <a href="#">Subscriptions</a>
-                <a href="#">Library</a>
-                <a href="#">History</a>
-            </div>
-        </nav>
-    </header>
+    <nav>
+        <div class="logo">
+            <h1>My<span>Tube</span></h1>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search videos..." oninput="filterVideos()">
+            <button onclick="filterVideos()">Search</button>
+        </div>
+        <div class="nav-links">
+            <a href="#" onclick="showSection('home')" class="active" data-section="home">Home</a>
+            <a href="#" onclick="showSection('trending')" data-section="trending">Trending</a>
+            <a href="#" onclick="showSection('library')" data-section="library">Library</a>
+            <a href="#" onclick="showSection('history')" data-section="history">History</a>
+            <a href="https://buymeacoffee.com/musikalangw" target="_blank" class="coffee-btn">
+                <span>☕</span> Buy me a coffee
+            </a>
+        </div>
+    </nav>
 
-    <main>
-        <div class="content">
-            <div class="video-grid" id="videoGrid">
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <video width="560" height="315" controls>
-                            <source src="https://f005.backblazeb2.com/file/MyTube1190/Lady+Gaga%2C+Bruno+Mars+-+Die+With+A+Smile+(Official+Music+Video).mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="video-info">
-                        <h3>Lady Gaga, Bruno Mars - Die With A Smile (Official Music Video)</h3>
-                        <div class="video-meta">
-                            <span>A powerful duet by Lady Gaga and Bruno Mars. 🎤✨</span>
-                            <span>2024-01-21</span>
-                        </div>
-                    </div>
+    <div id="home" class="section active">
+        <div class="video-grid"></div>
+    </div>
+
+    <div id="trending" class="section">
+        <div class="section-header">
+            <h2>🔥 Trending Now</h2>
+            <p>Watch what's hot right now</p>
+        </div>
+        <div class="trending-grid">
+            <!-- Will be populated by JavaScript -->
+        </div>
+    </div>
+
+    <div id="library" class="section">
+        <div class="section-header">
+            <h2>📚 Your Library</h2>
+        </div>
+        <div class="library-content">
+            <div class="library-section">
+                <h3>Watch Later</h3>
+                <div id="watchLater" class="video-list">
+                    <p class="empty-message">No videos added to Watch Later</p>
                 </div>
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <video width="560" height="315" controls>
-                            <source src="https://f005.backblazeb2.com/file/MyTube1190/Maybe+This+Time.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div class="video-info">
-                        <h3>Maybe This Time - Sarah Geronimo</h3>
-                        <div class="video-meta">
-                            <span>A heartfelt performance by Sarah Geronimo. 🎤💫</span>
-                            <span>2024-01-21</span>
-                        </div>
-                    </div>
+            </div>
+            <div class="library-section">
+                <h3>Liked Videos</h3>
+                <div id="likedVideos" class="video-list">
+                    <p class="empty-message">No liked videos yet</p>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+
+    <div id="history" class="section">
+        <div class="section-header">
+            <h2>⏰ Watch History</h2>
+            <button onclick="clearHistory()" class="clear-btn">Clear History</button>
+        </div>
+        <div id="watchHistory" class="video-list">
+            <p class="empty-message">No watch history</p>
+        </div>
+    </div>
 
     <footer class="disclaimer">
-        Disclaimer<br>
-        This website is intended for educational and entertainment purposes only. We do not own or host any of the videos available for streaming. All content is sourced from publicly available platforms or third-party providers. We do not claim ownership of any copyrighted material, and no copyright infringement is intended.<br><br>
-        If you are a copyright owner and believe that any content on this site violates your rights, please contact us, and we will take appropriate action.<br><br>
-        By using this website, you agree to comply with all applicable copyright laws and take full responsibility for how you use the content.
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About MyTube</h3>
+                <p>A video sharing platform for educational and entertainment purposes.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Legal</h3>
+                <p>This website is for demonstration purposes only.</p>
+                <p>All content belongs to their respective owners.</p>
+                <p>If you believe your copyright has been violated, please contact us.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: support@mytube.com</p>
+                <p>Follow us on social media</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 MyTube. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script>
+        const videos = [
+            {
+                "id": "1",
+                "title": "Lady Gaga, Bruno Mars - Die With A Smile",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/Lady+Gaga%2C+Bruno+Mars+-+Die+With+A+Smile+(Official+Music+Video).mp4",
+                "description": "A powerful duet by Lady Gaga and Bruno Mars",
+                "category": "Music - Pop",
+                "views": "1.2M",
+                "trending": true
+            },
+            {
+                "id": "2",
+                "title": "I Just Fall In Love Again - Sarah Geronimo",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/I+Just+Fall+In+Love+Again+-+Sarah+Geronimo+(Finally+Found+Someone+Movie+Theme+Song)+720.mp4",
+                "description": "Sarah Geronimo performs 'I Just Fall In Love Again'",
+                "category": "Music - Pop",
+                "views": "856K",
+                "trending": true
+            },
+            {
+                "id": "3",
+                "title": "Maybe This Time",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/Maybe+This+Time.mp4",
+                "description": "A beautiful rendition of 'Maybe This Time'",
+                "category": "Music - Pop",
+                "views": "543K",
+                "trending": false
+            },
+            {
+                "id": "4",
+                "title": "Natalie Cole - Starting Over Again",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/Natalie+Cole+-+Starting+Over+Again+(Official+Audio)+720.mp4",
+                "description": "Official audio of 'Starting Over Again' performed by Natalie Cole",
+                "category": "Music - Pop",
+                "views": "723K",
+                "trending": true
+            },
+            {
+                "id": "5",
+                "title": "Angel Baby",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/Angel+Baby+720.mp4",
+                "description": "A heartwarming performance of the classic song 'Angel Baby'",
+                "category": "Music - Pop",
+                "views": "634K",
+                "trending": true
+            },
+            {
+                "id": "6",
+                "title": "Gino Padilla - Million Miles Away",
+                "url": "https://f005.backblazeb2.com/file/MyTube1190/GINO+PADILLA+-+MILLION+MILES+AWAY+720.mp4",
+                "description": "Classic hit 'Million Miles Away' performed by Gino Padilla",
+                "category": "Music - Pop",
+                "views": "892K",
+                "trending": true
+            }
+        ];
+
+        let filteredVideos = videos;
+        let watchHistory = [];
+        let likedVideos = [];
+        let watchLater = [];
+
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+
+            // Update nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.section === sectionId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update content based on section
+            if (sectionId === 'trending') {
+                displayTrending();
+            } else if (sectionId === 'library') {
+                displayLibrary();
+            } else if (sectionId === 'history') {
+                displayHistory();
+            }
+        }
+
+        function displayVideos() {
+            const videoGrid = document.querySelector('.video-grid');
+            videoGrid.innerHTML = filteredVideos.map(video => `
+                <div class="video-card">
+                    <video controls preload="metadata" onplay="addToHistory('${video.id}')">
+                        <source src="${video.url}" type="video/mp4">
+                    </video>
+                    <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                        <div class="video-meta">
+                            <span>${video.views} views</span>
+                            <span>•</span>
+                            <span>2 days ago</span>
+                            <span>•</span>
+                            <span class="category">${video.category}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            setupVideoPlayers();
+        }
+
+        function displayTrending() {
+            const trendingGrid = document.querySelector('.trending-grid');
+            const trendingVideos = videos.filter(v => v.trending);
+            trendingGrid.innerHTML = trendingVideos.map(video => `
+                <div class="video-card">
+                    <video controls preload="metadata" onplay="addToHistory('${video.id}')">
+                        <source src="${video.url}" type="video/mp4">
+                    </video>
+                    <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                        <div class="video-meta">
+                            <span>${video.views} views</span>
+                            <span>•</span>
+                            <span>Trending #${trendingVideos.indexOf(video) + 1}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            setupVideoPlayers();
+        }
+
+        function displayHistory() {
+            const historyContainer = document.getElementById('watchHistory');
+            if (watchHistory.length === 0) {
+                historyContainer.innerHTML = '<p class="empty-message">No watch history</p>';
+                return;
+            }
+
+            historyContainer.innerHTML = watchHistory.map(videoId => {
+                const video = videos.find(v => v.id === videoId);
+                return `
+                    <div class="video-card">
+                        <video controls preload="metadata">
+                            <source src="${video.url}" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3>${video.title}</h3>
+                            <div class="video-meta">
+                                <span>Watched recently</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            setupVideoPlayers();
+        }
+
+        function displayLibrary() {
+            // Update Watch Later
+            const watchLaterContainer = document.getElementById('watchLater');
+            watchLaterContainer.innerHTML = watchLater.length ? watchLater.map(videoId => {
+                const video = videos.find(v => v.id === videoId);
+                return `
+                    <div class="video-card">
+                        <video controls preload="metadata">
+                            <source src="${video.url}" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3>${video.title}</h3>
+                        </div>
+                    </div>
+                `;
+            }).join('') : '<p class="empty-message">No videos added to Watch Later</p>';
+
+            // Update Liked Videos
+            const likedContainer = document.getElementById('likedVideos');
+            likedContainer.innerHTML = likedVideos.length ? likedVideos.map(videoId => {
+                const video = videos.find(v => v.id === videoId);
+                return `
+                    <div class="video-card">
+                        <video controls preload="metadata">
+                            <source src="${video.url}" type="video/mp4">
+                        </video>
+                        <div class="video-info">
+                            <h3>${video.title}</h3>
+                        </div>
+                    </div>
+                `;
+            }).join('') : '<p class="empty-message">No liked videos yet</p>';
+
+            setupVideoPlayers();
+        }
+
+        function addToHistory(videoId) {
+            if (!watchHistory.includes(videoId)) {
+                watchHistory.unshift(videoId);
+                // Keep only last 10 videos
+                watchHistory = watchHistory.slice(0, 10);
+            }
+        }
+
+        function clearHistory() {
+            watchHistory = [];
+            displayHistory();
+        }
+
+        function setupVideoPlayers() {
+            document.querySelectorAll('video').forEach(video => {
+                video.addEventListener('play', () => {
+                    document.querySelectorAll('video').forEach(otherVideo => {
+                        if (otherVideo !== video) otherVideo.pause();
+                    });
+                });
+            });
+        }
+
+        function filterVideos() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            filteredVideos = videos.filter(video => 
+                video.title.toLowerCase().includes(searchTerm) ||
+                video.description.toLowerCase().includes(searchTerm) ||
+                video.category.toLowerCase().includes(searchTerm)
+            );
+            displayVideos();
+        }
+
+        // Initialize
+        displayVideos();
+    </script>
 </body>
 </html>
