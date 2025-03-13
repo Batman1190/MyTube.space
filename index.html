@@ -22,7 +22,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 12px 24px;  /* Increased padding */
+            padding: 12px 24px;
             background: #333;
             box-shadow: 0 2px 4px rgba(0,0,0,0.3);
             position: fixed;
@@ -32,149 +32,14 @@
             z-index: 1000;
         }
 
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-left: 16px;  /* Add margin to separate from search bar */
-        }
-
-        .btn {
-            background: #ff0000;
-            color: white;
-            border: none;
-            padding: 8px 16px;  /* Increased horizontal padding */
-            border-radius: 5px;
-            cursor: pointer;
+        .logo h1 {
+            color: #ff0000;
+            font-size: 1.8rem;
             font-weight: bold;
-            margin: 0 4px;  /* Add margin between buttons */
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
         }
 
-        /* Adjust mobile layout */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                padding: 12px;
-            }
-            
-            .nav-right {
-                margin: 12px 0;  /* Add vertical margin in mobile view */
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .btn {
-                padding: 10px 20px;  /* Larger touch targets for mobile */
-            }
-        }
-
-        /* Update main content spacing */
-        main {
-            margin-top: 80px;  /* Reduced from 130px */
-            padding: 20px;
-        }
-
-        /* Update video grid and card styles */
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  /* Reduced from 320px */
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .video-card {
-            background: #333333;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .video-wrapper {
-            position: relative;
-            padding-top: 56.25%;  /* 16:9 aspect ratio */
-            background: #000000;
-        }
-
-        .video-info {
-            padding: 12px;
-        }
-
-        .video-info h3 {
-            color: #ffffff;
-            font-size: 1rem;
-            margin: 0 0 8px 0;
-            line-height: 1.4;
-        }
-
-        .video-meta {
-            color: #aaaaaa;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        /* Mobile adjustments */
-        @media (max-width: 768px) {
-            main {
-                margin-top: 140px;  /* Adjusted for mobile nav height */
-                padding: 12px;
-            }
-
-            .video-grid {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-
-            .video-info h3 {
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Mobile-first responsive design */
-        @media (max-width: 768px) {
-            nav {
-                flex-direction: column;
-                padding: 8px;
-            }
-
-            .logo h1 {
-                font-size: 1.2rem;
-                margin: 4px 0;
-            }
-
-            .search-bar {
-                width: calc(100% - 16px);
-                margin: 4px 0;
-            }
-
-            .search-bar input {
-                height: 32px;
-            }
-
-            .search-bar button {
-                height: 32px;
-                padding: 0 10px;
-            }
-
-            .nav-links {
-                padding: 4px 0;
-            }
-
-            .upload-btn, .login-btn {
-                padding: 6px 12px;
-                font-size: 0.9rem;
-            }
-        }
-
-        /* For larger screens */
-        @media (min-width: 769px) {
-            main {
-                margin-top: 70px;
-            }
-            
-            nav {
-                flex-direction: row;
-            }
-        }
         .search-bar {
             display: flex;
             gap: 10px;
@@ -199,142 +64,47 @@
             white-space: nowrap;
         }
 
-        .upload-btn, .login-btn {
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
             color: white;
-            background: #1a73e8;
-            white-space: nowrap;
-            margin-left: 10px; /* Add margin to separate from search bar */
-        }
-
-        /* Mobile-first responsive design */
-        @media (max-width: 768px) {
-            .sidebar {
-                display: none;
-            }
-            
-            .content {
-                margin-left: 0;
-                width: 100%;
-                padding: 10px;
-            }
-
-            nav {
-                flex-direction: column;
-                padding: 10px;
-            }
-
-            .search-bar {
-                width: 100%;
-                margin: 10px 0;
-                padding: 0 10px;
-            }
-
-            .video-grid {
-                grid-template-columns: 1fr !important;
-                gap: 15px;
-                padding: 10px;
-            }
-
-            .video-meta {
-                flex-direction: column;
-                gap: 5px;
-            }
-
-            .video-info h3 {
-                font-size: 1rem;
-            }
-
-            .nav-links {
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                gap: 10px;
-                margin-top: 10px;
-            }
-
-            .logo h1 {
-                font-size: 1.5rem;
-                margin: 0;
-            }
-
-            .video-card {
-                margin-bottom: 15px;
-            }
-
-            .video-info {
-                padding: 12px;
-            }
-
-            .video-meta span {
-                display: block;
-                margin-bottom: 5px;
-            }
-        }
-
-        /* Update nav styles for dark theme consistency */
-        nav {
-            background: #333333;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-
-        /* Update logo styles */
-        .logo h1 {
-            color: #ff0000;  /* YouTube-like red color */
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
-
-        /* Mobile adjustments for logo */
-        @media (max-width: 768px) {
-            .logo h1 {
-                font-size: 1.5rem;
-                margin: 4px 0;
-            }
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .sidebar li {
-            margin: 8px 0;
-        }
-        
-        .sidebar a {
             text-decoration: none;
-            color: #ffffff;
-            font-size: 1rem;
             padding: 8px 16px;
-            display: block;
             border-radius: 4px;
             transition: background-color 0.2s;
         }
-        
-        .sidebar a:hover {
+
+        .nav-links a:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
-        
-        .sidebar span {
-            color: #e0e0e0;
-            font-weight: 500;
-        }
-        
-        /* Mobile adjustments for sidebar */
-        @media (max-width: 768px) {
-            .sidebar a {
-                padding: 12px 16px;
-                font-size: 1.1rem;
-            }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 80px;
         }
 
-        /* Add these video player styles */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: #333333;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 
+                0 4px 8px rgba(0,0,0,0.3),
+                inset 0 1px 1px rgba(255,255,255,0.1);
+            margin-bottom: 24px;
+        }
+
         .video-wrapper {
             position: relative;
             padding-top: 56.25%;
@@ -353,7 +123,7 @@
             transform: perspective(1000px) rotateX(0deg);
         }
 
-        .video-wrapper iframe, .video-wrapper video {
+        .video-wrapper video {
             position: absolute;
             top: 0;
             left: 0;
@@ -363,24 +133,19 @@
             background: #000000;
         }
 
-        .video-card {
-            background: #333333;
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 
-                0 4px 8px rgba(0,0,0,0.3),
-                inset 0 1px 1px rgba(255,255,255,0.1);
-            margin-bottom: 24px;
+        .video-info h3 {
+            color: #ffffff;
+            font-size: 1rem;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
         }
 
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-            padding: 24px;
+        .video-meta {
+            color: #aaaaaa;
+            font-size: 0.9rem;
+            line-height: 1.4;
         }
 
-        /* Disclaimer styles */
         .disclaimer {
             padding: 20px;
             background: #333;
@@ -388,6 +153,37 @@
             text-align: center;
             font-size: 0.9rem;
             border-top: 1px solid #444;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 12px;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .content {
+                padding: 10px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .video-info h3 {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -402,40 +198,18 @@
                 <button>Search</button>
             </div>
             <div class="nav-links" id="navLinks">
-                <!-- Login status will be updated here -->
+                <a href="#">Home</a>
+                <a href="#">Trending</a>
+                <a href="#">Subscriptions</a>
+                <a href="#">Library</a>
+                <a href="#">History</a>
             </div>
         </nav>
     </header>
 
     <main>
-        <div class="sidebar">
-            <ul>
-                <li><a href="#"><span>Home</span></a></li>
-                <li><a href="#"><span>Trending</span></a></li>
-                <li><a href="#"><span>Subscriptions</span></a></li>
-                <li><a href="#"><span>Library</span></a></li>
-                <li><a href="#"><span>History</span></a></li>
-            </ul>
-        </div>
-
         <div class="content">
             <div class="video-grid" id="videoGrid">
-                <!-- Videos will be loaded dynamically -->
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <iframe width="560" height="315" 
-                            src="https://www.youtube.com/embed/co8TKmQoOkk" 
-                            frameborder="0" allowfullscreen>
-                        </iframe>
-                    </div>
-                    <div class="video-info">
-                        <h3>Lady Gaga, Bruno Mars - Die With A Smile (MyTube)</h3>
-                        <div class="video-meta">
-                            <span>A powerful duet by Lady Gaga and Bruno Mars. 🎤✨</span>
-                            <span>2024-01-21</span>
-                        </div>
-                    </div>
-                </div>
                 <div class="video-card">
                     <div class="video-wrapper">
                         <video width="560" height="315" controls>
@@ -461,85 +235,5 @@
         If you are a copyright owner and believe that any content on this site violates your rights, please contact us, and we will take appropriate action.<br><br>
         By using this website, you agree to comply with all applicable copyright laws and take full responsibility for how you use the content.
     </footer>
-
-    <script>
-        function updateNavLinks() {
-            const token = localStorage.getItem('token');
-            const navLinks = document.getElementById('navLinks');
-            
-            if (token) {
-                navLinks.innerHTML = `
-                    <a href="upload.html" class="upload-btn">Upload</a>
-                    <a href="#" class="login-btn" id="logoutBtn">Logout</a>
-                `;
-                
-                // Add logout functionality
-                document.getElementById('logoutBtn').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    localStorage.removeItem('token');
-                    window.location.reload();
-                });
-            } else {
-                navLinks.innerHTML = `
-                    <a href="upload.html" class="upload-btn">Upload</a>
-                    <a href="login.html" class="login-btn">Login</a>
-                `;
-            }
-        }
-
-        // Function to load and display videos
-        function loadVideos() {
-            try {
-                console.log('Loading videos...');
-                const videos = [
-                    {
-                        "title": "Maybe this time by Sarah G (MyTube)",
-                        "videoId": "-ei_xdLpUHo",
-                        "description": "A heartfelt performance by Sarah Geronimo. 🎤💫",
-                        "uploadDate": "2024-01-21"
-                    },
-                    {
-                        "title": "SMILE by Gracie Gray (MyTube)",
-                        "videoId": "_CMThnVhO5Q",
-                        "description": "A beautiful melody that will make you smile. 🎵✨",
-                        "uploadDate": "2024-01-21"
-                    }
-                ];
-                
-                const videoGrid = document.getElementById('videoGrid');
-                videoGrid.innerHTML = ''; // Clear existing content
-                
-                videos.forEach(video => {
-                    const videoCard = `
-                        <div class="video-card">
-                            <div class="video-wrapper">
-                                <iframe
-                                    src="https://www.youtube.com/embed/${video.videoId}"
-                                    title="${video.title}"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen>
-                                </iframe>
-                            </div>
-                            <div class="video-info">
-                                <h3>${video.title || 'Untitled'}</h3>
-                                <div class="video-meta">
-                                    <span>${video.description || 'No description'}</span>
-                                    <span>${new Date(video.uploadDate).toLocaleDateString()}</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    videoGrid.innerHTML += videoCard;
-                });
-            } catch (error) {
-                console.error('Error loading videos:', error);
-            }
-        }
-
-        // Check login status and load videos when page loads
-        updateNavLinks();
-        loadVideos();
-    </script>
 </body>
 </html>
