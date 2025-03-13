@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyTube</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="MyTube - A video sharing platform">
+    <meta name="keywords" content="video, sharing, MyTube, streaming">
+    <style>
+        /* Base styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        /* Update nav and button styles */
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: #333;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            color: #ff0000;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-width: 0;
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 80px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-card {
+            background: #333333;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 
+                0 4px 8px rgba(0,0,0,0.3),
+                inset 0 1px 1px rgba(255,255,255,0.1);
+            margin-bottom: 24px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-top: 56.25%;
+            background: #000000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 
+                0 8px 16px rgba(0,0,0,0.5),
+                inset 0 1px 3px rgba(255,255,255,0.2);
+            transform: perspective(1000px) rotateX(2deg);
+            transition: transform 0.3s ease;
+            margin-bottom: 16px;
+        }
+
+        .video-wrapper:hover {
+            transform: perspective(1000px) rotateX(0deg);
+        }
+
+        .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000000;
+        }
+
+        .video-info h3 {
+            color: #ffffff;
+            font-size: 1rem;
+            margin: 0 0 8px 0;
+            line-height: 1.4;
+        }
+
+        .video-meta {
+            color: #aaaaaa;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .disclaimer {
+            padding: 20px;
+            background: #333;
+            color: #e0e0e0;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top: 1px solid #444;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                padding: 12px;
+            }
+
+            .search-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .content {
+                padding: 10px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .video-info h3 {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>MyTube</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search videos..." aria-label="Search videos">
+                <button>Search</button>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#">Home</a>
+                <a href="#">Trending</a>
+                <a href="#">Subscriptions</a>
+                <a href="#">Library</a>
+                <a href="#">History</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content">
+            <div class="video-grid" id="videoGrid">
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video width="560" height="315" controls>
+                            <source src="https://f005.backblazeb2.com/file/MyTube1190/Lady+Gaga%2C+Bruno+Mars+-+Die+With+A+Smile+(Official+Music+Video).mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Lady Gaga, Bruno Mars - Die With A Smile (Official Music Video)</h3>
+                        <div class="video-meta">
+                            <span>A powerful duet by Lady Gaga and Bruno Mars. 🎤✨</span>
+                            <span>2024-01-21</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <video width="560" height="315" controls>
+                            <source src="https://f005.backblazeb2.com/file/MyTube1190/Maybe+This+Time.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="video-info">
+                        <h3>Maybe This Time - Sarah Geronimo</h3>
+                        <div class="video-meta">
+                            <span>A heartfelt performance by Sarah Geronimo. 🎤💫</span>
+                            <span>2024-01-21</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="disclaimer">
+        Disclaimer<br>
+        This website is intended for educational and entertainment purposes only. We do not own or host any of the videos available for streaming. All content is sourced from publicly available platforms or third-party providers. We do not claim ownership of any copyrighted material, and no copyright infringement is intended.<br><br>
+        If you are a copyright owner and believe that any content on this site violates your rights, please contact us, and we will take appropriate action.<br><br>
+        By using this website, you agree to comply with all applicable copyright laws and take full responsibility for how you use the content.
+    </footer>
+</body>
+</html>
