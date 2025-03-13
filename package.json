@@ -1,0 +1,9 @@
+{
+  "name": "mytube-upgraded",
+  "version": "1.0.0",
+  "description": "Video streaming platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
