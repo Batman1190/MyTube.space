@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyTube</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
             margin: 0;
@@ -273,6 +274,39 @@
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
         }
+
+        .video-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .control-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 20px;
+            background: #2f2f2f;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .control-btn:hover {
+            background: #3f3f3f;
+            color: white;
+        }
+
+        .control-btn.active {
+            background: #ff4444;
+            color: white;
+        }
+
+        .control-btn i {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -290,7 +324,7 @@
             <a href="#" onclick="showSection('library')" data-section="library">Library</a>
             <a href="#" onclick="showSection('history')" data-section="history">History</a>
             <a href="https://buymeacoffee.com/musikalangw" target="_blank" class="coffee-btn">
-                <span>☕</span> Buy me a coffee
+                <span>☕</span> Buy Rod a coffee
             </a>
         </div>
     </nav>
@@ -419,24 +453,6 @@
                 "trending": true
             },
             {
-                "id": "7",
-                "title": "Personal Video 1",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/IMG_4044.mov",
-                "description": "Personal video recording",
-                "category": "Personal",
-                "views": "12",
-                "trending": false
-            },
-            {
-                "id": "8",
-                "title": "Personal Video 2",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/IMG_4045.mov",
-                "description": "Personal video recording",
-                "category": "Personal",
-                "views": "8",
-                "trending": false
-            },
-            {
                 "id": "9",
                 "title": "Sample Video (External)",
                 "url": "https://www.w3schools.com/html/mov_bbb.mp4",
@@ -461,6 +477,8 @@
         let watchHistory = [];
         let likedVideos = [];
         let watchLater = [];
+        let favoriteVideos = [];
+        let autoplayEnabled = false;
 
         function showSection(sectionId) {
             // Hide all sections
@@ -501,7 +519,7 @@
                             allow="autoplay; fullscreen"
                             allowfullscreen>
                         </iframe>` :
-                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')">
+                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this)">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
                     }
@@ -514,6 +532,16 @@
                             <span>2 days ago</span>
                             <span>•</span>
                             <span class="category">${video.category}</span>
+                        </div>
+                        <div class="video-controls">
+                            <button class="control-btn ${favoriteVideos.includes(video.id) ? 'active' : ''}" onclick="toggleFavorite('${video.id}')">
+                                <i class="fas fa-heart"></i>
+                                <span>Favorite</span>
+                            </button>
+                            <button class="control-btn ${autoplayEnabled ? 'active' : ''}" onclick="toggleAutoplay()">
+                                <i class="fas ${autoplayEnabled ? 'fa-pause-circle' : 'fa-play-circle'}"></i>
+                                <span>Autoplay ${autoplayEnabled ? 'On' : 'Off'}</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -535,7 +563,7 @@
                             allow="autoplay; fullscreen"
                             allowfullscreen>
                         </iframe>` :
-                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')">
+                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this)">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
                     }
@@ -546,6 +574,16 @@
                             <span>${video.views} views</span>
                             <span>•</span>
                             <span>Trending #${trendingVideos.indexOf(video) + 1}</span>
+                        </div>
+                        <div class="video-controls">
+                            <button class="control-btn ${favoriteVideos.includes(video.id) ? 'active' : ''}" onclick="toggleFavorite('${video.id}')">
+                                <i class="fas fa-heart"></i>
+                                <span>Favorite</span>
+                            </button>
+                            <button class="control-btn ${autoplayEnabled ? 'active' : ''}" onclick="toggleAutoplay()">
+                                <i class="fas ${autoplayEnabled ? 'fa-pause-circle' : 'fa-play-circle'}"></i>
+                                <span>Autoplay ${autoplayEnabled ? 'On' : 'Off'}</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -664,7 +702,55 @@
                         if (otherVideo !== video) otherVideo.pause();
                     });
                 });
+                
+                video.addEventListener('ended', () => {
+                    playNextVideo(video);
+                });
             });
+        }
+
+        function toggleFavorite(videoId) {
+            const index = favoriteVideos.indexOf(videoId);
+            if (index === -1) {
+                favoriteVideos.push(videoId);
+            } else {
+                favoriteVideos.splice(index, 1);
+            }
+            localStorage.setItem('favoriteVideos', JSON.stringify(favoriteVideos));
+            displayVideos();
+        }
+
+        function toggleAutoplay() {
+            autoplayEnabled = !autoplayEnabled;
+            localStorage.setItem('autoplayEnabled', autoplayEnabled);
+            displayVideos();
+        }
+
+        function playNextVideo(currentVideo) {
+            if (!autoplayEnabled) return;
+            
+            const currentVideoCard = currentVideo.closest('.video-card');
+            const nextVideoCard = currentVideoCard.nextElementSibling;
+            
+            if (nextVideoCard) {
+                const nextVideo = nextVideoCard.querySelector('video');
+                if (nextVideo) {
+                    nextVideo.play();
+                    currentVideoCard.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        function loadUserPreferences() {
+            const savedFavorites = localStorage.getItem('favoriteVideos');
+            if (savedFavorites) {
+                favoriteVideos = JSON.parse(savedFavorites);
+            }
+
+            const savedAutoplay = localStorage.getItem('autoplayEnabled');
+            if (savedAutoplay !== null) {
+                autoplayEnabled = JSON.parse(savedAutoplay);
+            }
         }
 
         function filterVideos() {
@@ -678,6 +764,7 @@
         }
 
         // Initialize
+        loadUserPreferences();
         displayVideos();
     </script>
 </body>
