@@ -413,6 +413,16 @@
     <script>
         const videos = [
             {
+                "id": "14",
+                "title": "I Just Fall In Love Again - Sarah Geronimo",
+                "type": "cloudflare",
+                "videoId": "9b1385fe30507c845d2720cddebd7365",
+                "description": "Sarah Geronimo performs 'I Just Fall In Love Again'",
+                "category": "Music - Pop",
+                "views": "89K",
+                "trending": true
+            },
+            {
                 "id": "13",
                 "title": "The Chasing My Rejected Wife Full",
                 "type": "embed",
@@ -443,76 +453,12 @@
                 "trending": true
             },
             {
-                "id": "1",
-                "title": "Lady Gaga, Bruno Mars - Die With A Smile",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/Lady+Gaga%2C+Bruno+Mars+-+Die+With+A+Smile+(Official+Music+Video).mp4",
-                "description": "A powerful duet by Lady Gaga and Bruno Mars",
-                "category": "Music - Pop",
-                "views": "1.2M",
-                "trending": true
-            },
-            {
-                "id": "2",
-                "title": "I Just Fall In Love Again - Sarah Geronimo",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/I+Just+Fall+In+Love+Again+-+Sarah+Geronimo+(Finally+Found+Someone+Movie+Theme+Song)+720.mp4",
-                "description": "Sarah Geronimo performs 'I Just Fall In Love Again'",
-                "category": "Music - Pop",
-                "views": "856K",
-                "trending": true
-            },
-            {
-                "id": "3",
-                "title": "Maybe This Time",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/Maybe+This+Time.mp4",
-                "description": "A beautiful rendition of 'Maybe This Time'",
-                "category": "Music - Pop",
-                "views": "543K",
-                "trending": false
-            },
-            {
-                "id": "4",
-                "title": "Natalie Cole - Starting Over Again",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/Natalie+Cole+-+Starting+Over+Again+(Official+Audio)+720.mp4",
-                "description": "Official audio of 'Starting Over Again' performed by Natalie Cole",
-                "category": "Music - Pop",
-                "views": "723K",
-                "trending": true
-            },
-            {
-                "id": "5",
-                "title": "Angel Baby",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/Angel+Baby+720.mp4",
-                "description": "A heartwarming performance of the classic song 'Angel Baby'",
-                "category": "Music - Pop",
-                "views": "634K",
-                "trending": true
-            },
-            {
-                "id": "6",
-                "title": "Gino Padilla - Million Miles Away",
-                "url": "https://f005.backblazeb2.com/file/MyTube1190/GINO+PADILLA+-+MILLION+MILES+AWAY+720.mp4",
-                "description": "Classic hit 'Million Miles Away' performed by Gino Padilla",
-                "category": "Music - Pop",
-                "views": "892K",
-                "trending": true
-            },
-            {
                 "id": "9",
                 "title": "Sample Video (External)",
                 "url": "https://www.w3schools.com/html/mov_bbb.mp4",
                 "description": "Sample video from external source (W3Schools)",
                 "category": "Demo",
                 "views": "45",
-                "trending": false
-            },
-            {
-                "id": "10",
-                "title": "Money, Guns, and a Merry Christmas",
-                "type": "embed",
-                "embedUrl": "https://www.dailymotion.com/embed/video/x9co0zo",
-                "description": "Money, Guns, and a Merry Christmas",
-                "category": "External",
-                "views": "128",
                 "trending": false
             }
         ];
@@ -563,6 +509,13 @@
                             allow="autoplay; fullscreen"
                             allowfullscreen>
                         </iframe>` :
+                        video.type === 'cloudflare' ?
+                        `<iframe
+                            src="https://iframe.cloudflarestream.com/${video.videoId}"
+                            style="border: none; width: 100%; height: 200px;"
+                            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                            allowfullscreen="true"
+                        ></iframe>` :
                         `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this)">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
@@ -590,7 +543,6 @@
                     </div>
                 </div>
             `).join('');
-
             setupVideoPlayers();
         }
 
@@ -607,6 +559,13 @@
                             allow="autoplay; fullscreen"
                             allowfullscreen>
                         </iframe>` :
+                        video.type === 'cloudflare' ?
+                        `<iframe
+                            src="https://iframe.cloudflarestream.com/${video.videoId}"
+                            style="border: none; width: 100%; height: 200px;"
+                            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                            allowfullscreen="true"
+                        ></iframe>` :
                         `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this)">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
@@ -655,6 +614,13 @@
                                 allow="autoplay; fullscreen"
                                 allowfullscreen>
                             </iframe>` :
+                            video.type === 'cloudflare' ?
+                            `<iframe
+                                src="https://iframe.cloudflarestream.com/${video.videoId}"
+                                style="border: none; width: 100%; height: 200px;"
+                                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                                allowfullscreen="true"
+                            ></iframe>` :
                             `<video controls preload="metadata">
                                 <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                             </video>`
@@ -687,6 +653,13 @@
                                 allow="autoplay; fullscreen"
                                 allowfullscreen>
                             </iframe>` :
+                            video.type === 'cloudflare' ?
+                            `<iframe
+                                src="https://iframe.cloudflarestream.com/${video.videoId}"
+                                style="border: none; width: 100%; height: 200px;"
+                                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                                allowfullscreen="true"
+                            ></iframe>` :
                             `<video controls preload="metadata">
                                 <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                             </video>`
@@ -712,6 +685,13 @@
                                 allow="autoplay; fullscreen"
                                 allowfullscreen>
                             </iframe>` :
+                            video.type === 'cloudflare' ?
+                            `<iframe
+                                src="https://iframe.cloudflarestream.com/${video.videoId}"
+                                style="border: none; width: 100%; height: 200px;"
+                                allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+                                allowfullscreen="true"
+                            ></iframe>` :
                             `<video controls preload="metadata">
                                 <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                             </video>`
