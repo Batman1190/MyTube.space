@@ -565,8 +565,9 @@
                             style="border: none; width: 100%; height: 200px;"
                             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                             allowfullscreen="true"
+                            data-video-type="cloudflare"
                         ></iframe>` :
-                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this)">
+                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this.closest('.video-card'))">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
                     }
@@ -615,8 +616,9 @@
                             style="border: none; width: 100%; height: 200px;"
                             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
                             allowfullscreen="true"
+                            data-video-type="cloudflare"
                         ></iframe>` :
-                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this)">
+                        `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this.closest('.video-card'))">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
                     }
@@ -770,6 +772,7 @@
         }
 
         function setupVideoPlayers() {
+            // Handle HTML5 video elements
             document.querySelectorAll('video').forEach(video => {
                 video.addEventListener('play', () => {
                     document.querySelectorAll('video').forEach(otherVideo => {
@@ -778,9 +781,51 @@
                 });
                 
                 video.addEventListener('ended', () => {
-                    playNextVideo(video);
+                    playNextVideo(video.closest('.video-card'));
                 });
             });
+
+            // Handle embedded iframes (Cloudflare and Dailymotion)
+            document.querySelectorAll('iframe').forEach(iframe => {
+                iframe.addEventListener('load', () => {
+                    // Add message listener for video events
+                    window.addEventListener('message', (event) => {
+                        // Handle Cloudflare Stream events
+                        if (event.data.event === 'videoEnded') {
+                            playNextVideo(iframe.closest('.video-card'));
+                        }
+                        // Handle Dailymotion events
+                        if (event.data.event === 'ended') {
+                            playNextVideo(iframe.closest('.video-card'));
+                        }
+                    });
+                });
+            });
+        }
+
+        function playNextVideo(currentVideoCard) {
+            if (!autoplayEnabled) return;
+            
+            const nextVideoCard = currentVideoCard.nextElementSibling;
+            
+            if (nextVideoCard) {
+                const nextVideo = nextVideoCard.querySelector('video');
+                const nextIframe = nextVideoCard.querySelector('iframe');
+                
+                if (nextVideo) {
+                    nextVideo.play();
+                } else if (nextIframe) {
+                    // For Cloudflare Stream videos
+                    if (nextIframe.src.includes('cloudflarestream')) {
+                        nextIframe.src = nextIframe.src + '?autoplay=true';
+                    }
+                    // For Dailymotion videos
+                    else if (nextIframe.src.includes('dailymotion')) {
+                        nextIframe.src = nextIframe.src + '?autoplay=1';
+                    }
+                }
+                nextVideoCard.scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         function toggleFavorite(videoId) {
@@ -798,21 +843,6 @@
             autoplayEnabled = !autoplayEnabled;
             localStorage.setItem('autoplayEnabled', autoplayEnabled);
             displayVideos();
-        }
-
-        function playNextVideo(currentVideo) {
-            if (!autoplayEnabled) return;
-            
-            const currentVideoCard = currentVideo.closest('.video-card');
-            const nextVideoCard = currentVideoCard.nextElementSibling;
-            
-            if (nextVideoCard) {
-                const nextVideo = nextVideoCard.querySelector('video');
-                if (nextVideo) {
-                    nextVideo.play();
-                    currentVideoCard.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
         }
 
         function loadUserPreferences() {
