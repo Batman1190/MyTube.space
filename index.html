@@ -322,15 +322,15 @@
         }
 
         #ad-container {
-            position: fixed;
-            right: 10px;
-            top: 80px;
-            width: 160px;
-            z-index: 1000;
+            position: relative;
+            bottom: 0;
+            width: 100%;
             background: #1f1f1f;
+            text-align: center;
             padding: 10px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
         }
 
         .ad-link {
@@ -387,21 +387,6 @@
             </a>
         </div>
     </nav>
-
-    <!-- Fixed ad container -->
-    <div id="ad-container">
-        <script type="text/javascript">
-            atOptions = {
-                'key' : '41b248193d36880a522911972d084a13',
-                'format' : 'iframe',
-                'height' : 600,
-                'width' : 160,
-                'params' : {}
-            };
-        </script>
-        <script type="text/javascript" src="https://www.highperformanceformat.com/41b248193d36880a522911972d084a13/invoke.js"></script>
-        <a href="https://www.effectiveratecpm.com/u5cqbjar?key=0b5c8ec91ad0d06f66adb08b7402e5f8" target="_blank" class="ad-link">Advertise Here</a>
-    </div>
 
     <div id="home" class="section active">
         <div class="video-grid"></div>
@@ -480,6 +465,21 @@
             <p>&copy; 2025 MyTube. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Ad container moved to bottom -->
+    <div id="ad-container">
+        <script type="text/javascript">
+            atOptions = {
+                'key' : '41b248193d36880a522911972d084a13',
+                'format' : 'iframe',
+                'height' : 90,
+                'width' : 728,
+                'params' : {}
+            };
+            document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.effectiveratecpm.com/41b248193d36880a522911972d084a13/invoke.js"></scr' + 'ipt>');
+        </script>
+        <a href="https://www.effectiveratecpm.com/u5cqbjar?key=0b5c8ec91ad0d06f66adb08b7402e5f8" target="_blank" class="ad-link">Advertise Here</a>
+    </div>
 
     <script>
         const videos = [
