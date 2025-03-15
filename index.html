@@ -527,6 +527,16 @@
     <script>
         const videos = [
             {
+                "id": "x3fjb7y",
+                "title": "FPJ Action Movie",
+                "type": "embed",
+                "embedUrl": "https://www.dailymotion.com/embed/video/x3fjb7y",
+                "description": "Classic FPJ Action Movie",
+                "category": "Movie",
+                "views": "0",
+                "trending": false
+            },
+            {
                 "id": "21",
                 "title": "Doraemon Title Song (Japanese)",
                 "type": "cloudflare",
@@ -696,11 +706,11 @@
             videoGrid.innerHTML = filteredVideos.map(video => `
                 <div class="video-card">
                     ${video.type === 'embed' ? 
-                        `<iframe src="${video.embedUrl}" 
+                        `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                             frameborder="0" 
                             width="100%" 
                             height="200"
-                            allow="autoplay; fullscreen"
+                            allow="autoplay; fullscreen; picture-in-picture"
                             allowfullscreen>
                         </iframe>` :
                         video.type === 'cloudflare' ?
@@ -711,13 +721,6 @@
                             allowfullscreen="true"
                             data-video-type="cloudflare"
                         ></iframe>` :
-                        video.type === 'dailymotion' ?
-                        `<iframe
-                            src="https://www.dailymotion.com/embed/video/${video.id}"
-                            style="border: none; width: 100%; height: 200px;"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>` :
                         `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this.closest('.video-card'))">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
@@ -753,11 +756,11 @@
             trendingGrid.innerHTML = trendingVideos.map(video => `
                 <div class="video-card">
                     ${video.type === 'embed' ? 
-                        `<iframe src="${video.embedUrl}" 
+                        `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                             frameborder="0" 
                             width="100%" 
                             height="200"
-                            allow="autoplay; fullscreen"
+                            allow="autoplay; fullscreen; picture-in-picture"
                             allowfullscreen>
                         </iframe>` :
                         video.type === 'cloudflare' ?
@@ -768,13 +771,6 @@
                             allowfullscreen="true"
                             data-video-type="cloudflare"
                         ></iframe>` :
-                        video.type === 'dailymotion' ?
-                        `<iframe
-                            src="https://www.dailymotion.com/embed/video/${video.id}"
-                            style="border: none; width: 100%; height: 200px;"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                        </iframe>` :
                         `<video controls preload="metadata" onplay="addToHistory('${video.id}')" onended="playNextVideo(this.closest('.video-card'))">
                             <source src="${video.url}" type="${video.url.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'}">
                         </video>`
@@ -816,11 +812,11 @@
                 return `
                     <div class="video-card">
                         ${video.type === 'embed' ? 
-                            `<iframe src="${video.embedUrl}" 
+                            `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                                 frameborder="0" 
                                 width="100%" 
                                 height="200"
-                                allow="autoplay; fullscreen"
+                                allow="autoplay; fullscreen; picture-in-picture"
                                 allowfullscreen>
                             </iframe>` :
                             video.type === 'cloudflare' ?
@@ -862,11 +858,11 @@
                 return `
                     <div class="video-card">
                         ${video.type === 'embed' ? 
-                            `<iframe src="${video.embedUrl}" 
+                            `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                                 frameborder="0" 
                                 width="100%" 
                                 height="200"
-                                allow="autoplay; fullscreen"
+                                allow="autoplay; fullscreen; picture-in-picture"
                                 allowfullscreen>
                             </iframe>` :
                             video.type === 'cloudflare' ?
@@ -901,11 +897,11 @@
                 return `
                     <div class="video-card">
                         ${video.type === 'embed' ? 
-                            `<iframe src="${video.embedUrl}" 
+                            `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                                 frameborder="0" 
                                 width="100%" 
                                 height="200"
-                                allow="autoplay; fullscreen"
+                                allow="autoplay; fullscreen; picture-in-picture"
                                 allowfullscreen>
                             </iframe>` :
                             video.type === 'cloudflare' ?
