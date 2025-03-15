@@ -527,6 +527,16 @@
     <script>
         const videos = [
             {
+                "id": "sn25SY2Rvhg",
+                "title": "2025 Kung Fu Action Film",
+                "type": "embed",
+                "embedUrl": "https://www.youtube.com/embed/sn25SY2Rvhg?enablejsapi=1&origin=*&modestbranding=1&rel=0",
+                "description": "A 100-year-old woman is a top killer, even Eighth Route Army can't stop her",
+                "category": "Movie",
+                "views": "0",
+                "trending": false
+            },
+            {
                 "id": "x3fjb7y",
                 "title": "FPJ Action Movie",
                 "type": "embed",
@@ -706,6 +716,14 @@
             videoGrid.innerHTML = filteredVideos.map(video => `
                 <div class="video-card">
                     ${video.type === 'embed' ? 
+                        video.embedUrl.includes('youtube.com') ?
+                        `<iframe src="${video.embedUrl}" 
+                            frameborder="0" 
+                            width="100%" 
+                            height="200"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>` :
                         `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                             frameborder="0" 
                             width="100%" 
@@ -756,6 +774,14 @@
             trendingGrid.innerHTML = trendingVideos.map(video => `
                 <div class="video-card">
                     ${video.type === 'embed' ? 
+                        video.embedUrl.includes('youtube.com') ?
+                        `<iframe src="${video.embedUrl}" 
+                            frameborder="0" 
+                            width="100%" 
+                            height="200"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                        </iframe>` :
                         `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                             frameborder="0" 
                             width="100%" 
@@ -812,6 +838,14 @@
                 return `
                     <div class="video-card">
                         ${video.type === 'embed' ? 
+                            video.embedUrl.includes('youtube.com') ?
+                            `<iframe src="${video.embedUrl}" 
+                                frameborder="0" 
+                                width="100%" 
+                                height="200"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>` :
                             `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                                 frameborder="0" 
                                 width="100%" 
@@ -858,6 +892,14 @@
                 return `
                     <div class="video-card">
                         ${video.type === 'embed' ? 
+                            video.embedUrl.includes('youtube.com') ?
+                            `<iframe src="${video.embedUrl}" 
+                                frameborder="0" 
+                                width="100%" 
+                                height="200"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>` :
                             `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                                 frameborder="0" 
                                 width="100%" 
@@ -897,6 +939,14 @@
                 return `
                     <div class="video-card">
                         ${video.type === 'embed' ? 
+                            video.embedUrl.includes('youtube.com') ?
+                            `<iframe src="${video.embedUrl}" 
+                                frameborder="0" 
+                                width="100%" 
+                                height="200"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                            </iframe>` :
                             `<iframe src="${video.embedUrl}?sharing-enable=false&ui-logo=false&ui-start-screen-info=false" 
                                 frameborder="0" 
                                 width="100%" 
