@@ -281,10 +281,28 @@ h2 {
 }
 
 .tiktok-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    background: var(--bg-lighter);
+    border-radius: 50%;
     transition: transform 0.3s ease;
-    padding: 0;
-    background: none;
+    color: white;
+    font-size: 24px;
+}
+
+.tiktok-link:hover {
+    transform: translateY(-2px);
+}
+
+.tiktok-link i {
+    transition: transform 0.3s ease;
+}
+
+.tiktok-link:hover i {
+    transform: scale(1.1);
 }
 
 .tiktok-link:hover {
