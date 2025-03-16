@@ -292,7 +292,19 @@ h2 {
 }
 
 .tiktok-link img {
-    filter: invert(1); /* Makes the TikTok logo white to match your theme */
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1); /* Makes the logo white */
+    transition: transform 0.3s ease;
+}
+    object-fit: cover;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    background-color: var(--bg-lighter); /* Adds a background while loading */
+}
+
+.tiktok-link:hover img {
+    transform: scale(1.1);
 }
 
 .coffee-link:hover {
