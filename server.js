@@ -1,67 +1,63 @@
-const http = require('http');
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
+const youtubeApiKey = 'AIzaSyA43RzI_erBWgxjiYcHcuT5DcrLN9tbORk'; // YouTube API Key
 
-// Get local IP address
-function getLocalIP() {
-    const interfaces = os.networkInterfaces();
-    for (const name of Object.keys(interfaces)) {
-        for (const iface of interfaces[name]) {
-            // Skip internal and non-IPv4 addresses
-            if (!iface.internal && iface.family === 'IPv4') {
-                return iface.address;
+document.getElementById('search-button').addEventListener('click', () => {
+    const searchTerm = document.getElementById('search-input').value;
+    document.getElementById('youtube-results').innerHTML = '<p>Searching YouTube...</p>';
+    document.getElementById('dailymotion-results').innerHTML = '<p>Searching Dailymotion...</p>';
+    searchYouTube(searchTerm);
+    searchDailymotion(searchTerm);
+});
+
+function searchYouTube(query) {
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${youtubeApiKey}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.items) {
+                const formattedVideos = data.items.map(video => ({
+                    id: video.id.videoId,
+                    title: video.snippet.title
+                }));
+                displayResults(formattedVideos, 'YouTube');
             }
-        }
-    }
-    return '0.0.0.0'; // Fallback
+        })
+        .catch(error => {
+            console.error('YouTube API Error:', error);
+        });
 }
 
-const server = http.createServer((req, res) => {
-    // Get the file path
-    let filePath = '.' + req.url;
-    if (filePath === './') {
-        filePath = './index.html';
-    }
-
-    // Get the file extension
-    const extname = path.extname(filePath);
-
-    // Set content type based on file extension
-    const contentType = {
-        '.html': 'text/html',
-        '.js': 'text/javascript',
-        '.css': 'text/css',
-        '.json': 'application/json',
-        '.png': 'image/png',
-        '.jpg': 'image/jpg',
-        '.mp4': 'video/mp4'
-    }[extname] || 'text/plain';
-
-    // Read the file
-    fs.readFile(filePath, (error, content) => {
-        if (error) {
-            if (error.code === 'ENOENT') {
-                res.writeHead(404);
-                res.end('File not found');
-            } else {
-                res.writeHead(500);
-                res.end('Server error: ' + error.code);
+function searchDailymotion(query) {
+    fetch(`https://api.dailymotion.com/videos?search=${query}&fields=id,title,thumbnail_url`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.list) {
+                const formattedVideos = data.list.map(video => ({
+                    id: video.id,
+                    title: video.title
+                }));
+                displayResults(formattedVideos, 'Dailymotion');
             }
-        } else {
-            res.writeHead(200, { 'Content-Type': contentType });
-            res.end(content, 'utf-8');
-        }
+        })
+        .catch(error => {
+            console.error('Dailymotion API Error:', error);
+        });
+}
+
+function displayResults(videos, platform) {
+    if (!videos || videos.length === 0) return;
+    const container = document.getElementById(
+        platform === 'YouTube' ? 'youtube-results' : 'dailymotion-results'
+    );
+    container.innerHTML = '';
+    videos.forEach(video => {
+        if (!video.id) return;
+        const videoUrl = platform === 'YouTube' 
+            ? `https://www.youtube.com/embed/${video.id}` 
+            : `https://www.dailymotion.com/embed/video/${video.id}`;
+        container.innerHTML += `
+            <div class="video-container">
+                <iframe src="${videoUrl}" frameborder="0" allowfullscreen></iframe>
+                <p><strong>${video.title}</strong></p>
+            </div>
+        `;
     });
-});
-
-const PORT = 3000;
-const localIP = getLocalIP();
-
-server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server is running at:`);
-    console.log(`- Local: http://localhost:${PORT}/`);
-    console.log(`- Network: http://${localIP}:${PORT}/`);
-    console.log('Share the Network URL with devices on your local network');
-    console.log('Press Ctrl+C to stop the server');
-});
+}
