@@ -274,11 +274,25 @@ h2 {
     }
 }
 
-.coffee-link {
+.support-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.tiktok-link {
     display: inline-block;
     transition: transform 0.3s ease;
     padding: 0;
     background: none;
+}
+
+.tiktok-link:hover {
+    transform: translateY(-2px);
+}
+
+.tiktok-link img {
+    filter: invert(1); /* Makes the TikTok logo white to match your theme */
 }
 
 .coffee-link:hover {
