@@ -23,7 +23,52 @@ body {
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 1000;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.sticky-search {
+    position: sticky;
+    top: 80px;
+    background-color: var(--bg-dark);
+    padding: 1rem;
+    z-index: 99;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 0.8rem 1rem;
+        height: auto;
+        z-index: 1000;
+        position: fixed;
+        width: 100%;
+        top: 0;
+    }
+
+    .sticky-search {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        padding: 0.8rem;
+        flex-direction: column;
+        background-color: var(--bg-dark);
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #content {
+        margin-top: 130px;
+        padding: 10px;
+    }
+
+    .logo-container {
+        margin-bottom: 0;
+    }
 }
 
 .header-content {
