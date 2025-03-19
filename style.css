@@ -359,3 +359,19 @@ h2 {
         padding: 0.5rem;
     }
 }
+
+.footer-links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.footer-links a {
+    color: #666;
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ff0000;
+}
