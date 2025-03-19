@@ -81,6 +81,14 @@ body {
     align-items: center;
 }
 
+@media (max-width: 768px) {
+    .sticky-search {
+        top: 50px;
+        padding: 0.8rem;
+        flex-direction: column;
+    }
+}
+
 #search-input {
     padding: 12px 16px;
     width: 100%;
