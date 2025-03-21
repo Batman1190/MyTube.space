@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>MyTube.Space - 2-in-1 Video Search</title>
+    <link>https://mytube.space</link>
+    <description>Find and enjoy videos from YouTube and Dailymotion in one place with MyTube.Space’s seamless 2-in-1 search.</description>
+    <language>en-us</language>
+
+    <item>
+      <title>Explore Videos from YouTube & Dailymotion</title>
+      <link>https://mytube.space</link>
+      <description>Search and watch videos from YouTube and Dailymotion using MyTube.Space’s powerful combined search engine.</description>
+      <pubDate><?php echo date(DATE_RSS); ?></pubDate>
+      <guid>https://mytube.space</guid>
+    </item>
+
+  </channel>
+</rss>
