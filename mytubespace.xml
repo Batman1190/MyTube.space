@@ -7,7 +7,7 @@
     <language>en-us</language>
 
     <item>
-      <title>Explore Videos from YouTube & Dailymotion</title>
+      <title>Explore Videos from YouTube &amp; Dailymotion</title>
       <link>https://mytube.space</link>
       <description>Search and watch videos from YouTube and Dailymotion using MyTube.Space’s powerful combined search engine.</description>
       <pubDate><?php echo date(DATE_RSS); ?></pubDate>
