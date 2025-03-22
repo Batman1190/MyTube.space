@@ -1,7 +1,4 @@
-:root {
-    --primary-color: #ff4d4d;
-    --bg-dark: #0d0d0d;
-    --bg-lighter: #1a1a1a;
+
     --text-color: #d3d3d3;
 }
 
@@ -12,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh;
-}
+
 
 .header {
     position: fixed;
@@ -172,9 +169,7 @@ body {
 }
 
 .video-container {
-    background-color: var(--bg-lighter);
-    border-radius: 12px;
-    overflow: hidden;
+    background-color: var(--
     transition: transform 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
