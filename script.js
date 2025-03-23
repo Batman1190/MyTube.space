@@ -70,34 +70,29 @@ function searchDailymotion(query) {
 function displayResults(videos, platform) {
     if (!videos || videos.length === 0) return;
     const container = document.getElementById(
-        platform === 'YouTube' ? 'youtube-results' : 'dailymotion-results'
-    );
+        platform === 'YouTube' ? 'youtube-section' : 'dailymotion-section'
+    ).querySelector('.video-gallery');
     container.innerHTML = '';
     
-    // Limit the number of videos displayed at once (especially for mobile)
     const maxVisibleVideos = window.innerWidth <= 768 ? 4 : 10;
     const limitedVideos = videos.slice(0, maxVisibleVideos);
     
-    // Create an Intersection Observer for lazy loading
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const iframe = entry.target;
-                if (!iframe.src) {
+                if (!iframe.src && iframe.dataset.src) {
                     iframe.src = iframe.dataset.src;
-                    // Add a loading indicator
                     iframe.parentElement.classList.add('loading');
-                    iframe.onload = () => {
+                    iframe.addEventListener('load', () => {
+                        iframe.classList.add('loaded');
                         iframe.parentElement.classList.remove('loading');
-                    };
+                    }, { once: true });
                 }
                 observer.unobserve(iframe);
             }
         });
-    }, { 
-        threshold: 0.1,
-        rootMargin: '50px'
-    });
+    }, { threshold: 0.1, rootMargin: '50px' });
 
     limitedVideos.forEach(video => {
         if (!video.id) return;
@@ -115,40 +110,36 @@ function displayResults(videos, platform) {
 
         const iframe = videoDiv.querySelector('iframe');
         
-        // Add error handling
-        iframe.onerror = () => {
+        iframe.addEventListener('error', () => {
             console.error(`Failed to load video: ${video.id}`);
-            iframe.parentElement.innerHTML = `
+            videoDiv.innerHTML = `
                 <div class="video-error">
                     <p>Failed to load video. Please try refreshing.</p>
                 </div>
             `;
-        };
+        }, { once: true });
 
-        // Enhanced cleanup function
         const cleanup = () => {
             observer.unobserve(iframe);
             iframe.src = 'about:blank';
-            iframe.onload = null;
-            iframe.onerror = null;
-            // Remove any event listeners
-            iframe.parentElement.replaceWith(iframe.parentElement.cloneNode(true));
+            iframe.remove();
+            videoDiv.remove();
         };
 
-        // Observe iframe for cleanup when it's removed
-        const mutationObserver = new MutationObserver((mutations, obs) => {
-            if (!document.contains(iframe)) {
-                cleanup();
-                obs.disconnect();
-            }
-        });
-        mutationObserver.observe(document.body, { childList: true, subtree: true });
+        if ('IntersectionObserver' in window) {
+            const cleanupObserver = new IntersectionObserver((entries) => {
+                if (!entries[0].isIntersecting) {
+                    cleanup();
+                    cleanupObserver.disconnect();
+                }
+            }, { threshold: 0 });
+            cleanupObserver.observe(videoDiv);
+        }
 
         container.appendChild(videoDiv);
         observer.observe(iframe);
     });
 
-    // Add a "Load More" button if there are more videos
     if (videos.length > maxVisibleVideos) {
         const loadMoreBtn = document.createElement('button');
         loadMoreBtn.className = 'load-more-btn';
