@@ -74,18 +74,32 @@ function displayResults(videos, platform) {
     );
     container.innerHTML = '';
     
+    // Limit the number of videos displayed at once (especially for mobile)
+    const maxVisibleVideos = window.innerWidth <= 768 ? 4 : 10;
+    const limitedVideos = videos.slice(0, maxVisibleVideos);
+    
     // Create an Intersection Observer for lazy loading
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const iframe = entry.target;
-                iframe.src = iframe.dataset.src;
+                if (!iframe.src) {
+                    iframe.src = iframe.dataset.src;
+                    // Add a loading indicator
+                    iframe.parentElement.classList.add('loading');
+                    iframe.onload = () => {
+                        iframe.parentElement.classList.remove('loading');
+                    };
+                }
                 observer.unobserve(iframe);
             }
         });
-    }, { threshold: 0.1 });
+    }, { 
+        threshold: 0.1,
+        rootMargin: '50px'
+    });
 
-    videos.forEach(video => {
+    limitedVideos.forEach(video => {
         if (!video.id) return;
         const videoUrl = platform === 'YouTube' 
             ? `https://www.youtube.com/embed/${video.id}?mute=1&enablejsapi=1` 
@@ -96,6 +110,7 @@ function displayResults(videos, platform) {
         videoDiv.innerHTML = `
             <iframe data-src="${videoUrl}" frameborder="0" allowfullscreen loading="lazy"></iframe>
             <p><strong>${video.title}</strong></p>
+            <div class="loading-indicator">Loading...</div>
         `;
 
         const iframe = videoDiv.querySelector('iframe');
@@ -110,22 +125,39 @@ function displayResults(videos, platform) {
             `;
         };
 
-        // Clean up resources when iframe is removed
+        // Enhanced cleanup function
         const cleanup = () => {
             observer.unobserve(iframe);
             iframe.src = 'about:blank';
+            iframe.onload = null;
             iframe.onerror = null;
+            // Remove any event listeners
+            iframe.parentElement.replaceWith(iframe.parentElement.cloneNode(true));
         };
 
         // Observe iframe for cleanup when it's removed
-        new MutationObserver((mutations, obs) => {
+        const mutationObserver = new MutationObserver((mutations, obs) => {
             if (!document.contains(iframe)) {
                 cleanup();
                 obs.disconnect();
             }
-        }).observe(document.body, { childList: true, subtree: true });
+        });
+        mutationObserver.observe(document.body, { childList: true, subtree: true });
 
         container.appendChild(videoDiv);
         observer.observe(iframe);
     });
+
+    // Add a "Load More" button if there are more videos
+    if (videos.length > maxVisibleVideos) {
+        const loadMoreBtn = document.createElement('button');
+        loadMoreBtn.className = 'load-more-btn';
+        loadMoreBtn.textContent = 'Load More Videos';
+        loadMoreBtn.onclick = () => {
+            const nextBatch = videos.slice(maxVisibleVideos, videos.length);
+            displayResults(nextBatch, platform);
+            loadMoreBtn.remove();
+        };
+        container.appendChild(loadMoreBtn);
+    }
 }

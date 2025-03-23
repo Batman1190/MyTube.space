@@ -291,27 +291,26 @@ h2 {
 .ad-container-right {
     position: fixed;
     right: 0;
-    top: 80px; /* Adjusted to be below header */
+    top: 80px;
     bottom: 0;
-    width: 180px; /* Slightly wider than the ad */
+    width: 160px;
     z-index: 997;
-    pointer-events: none; /* Allows clicking through the container */
+    pointer-events: none;
 }
 
 .ad-wrapper {
     position: sticky;
     top: 80px;
-    padding: 10px;
-    pointer-events: auto; /* Restores click functionality for the ad */
+    padding: 8px;
+    pointer-events: auto;
     background: var(--bg-lighter);
     border-radius: 8px 0 0 8px;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Adjust main content to make room for ad */
 @media (min-width: 1400px) {
     #content {
-        margin-right: 200px;
+        margin-right: 180px;
     }
 }
 
