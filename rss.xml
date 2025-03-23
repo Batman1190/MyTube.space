@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MyTube.Space - Search YouTube &amp; Dailymotion Videos in One Place</title>
+    <link>https://mytube.space</link>
+    <description>Discover and watch videos from YouTube and Dailymotion in one place with MyTube.space's seamless 2-in-1 search.</description>
+    <language>en</language>
+    <lastBuildDate>Fri, 21 Mar 2025 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://mytube.space/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://mytube.space/logo.png</url>
+      <title>MyTube.Space</title>
+      <link>https://mytube.space</link>
+    </image>
+    <item>
+      <title>Featured Video of the Week</title>
+      <link>https://mytube.space/featured-video</link>
+      <description>Check out our featured video of the week, showcasing top content from YouTube and Dailymotion.</description>
+      <pubDate>Fri, 21 Mar 2025 00:00:00 GMT</pubDate>
+      <guid isPermaLink="true">https://mytube.space/featured-video</guid>
+    </item>
+  </channel>
+</rss>
