@@ -73,16 +73,59 @@ function displayResults(videos, platform) {
         platform === 'YouTube' ? 'youtube-results' : 'dailymotion-results'
     );
     container.innerHTML = '';
+    
+    // Create an Intersection Observer for lazy loading
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const iframe = entry.target;
+                iframe.src = iframe.dataset.src;
+                observer.unobserve(iframe);
+            }
+        });
+    }, { threshold: 0.1 });
+
     videos.forEach(video => {
         if (!video.id) return;
         const videoUrl = platform === 'YouTube' 
-            ? `https://www.youtube.com/embed/${video.id}?mute=1` 
-            : `https://www.dailymotion.com/embed/video/${video.id}?mute=1`;
-        container.innerHTML += `
-            <div class="video-container">
-                <iframe src="${videoUrl}" frameborder="0" allowfullscreen></iframe>
-                <p><strong>${video.title}</strong></p>
-            </div>
+            ? `https://www.youtube.com/embed/${video.id}?mute=1&enablejsapi=1` 
+            : `https://www.dailymotion.com/embed/video/${video.id}?mute=1&api=1`;
+        
+        const videoDiv = document.createElement('div');
+        videoDiv.className = 'video-container';
+        videoDiv.innerHTML = `
+            <iframe data-src="${videoUrl}" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            <p><strong>${video.title}</strong></p>
         `;
+
+        const iframe = videoDiv.querySelector('iframe');
+        
+        // Add error handling
+        iframe.onerror = () => {
+            console.error(`Failed to load video: ${video.id}`);
+            iframe.parentElement.innerHTML = `
+                <div class="video-error">
+                    <p>Failed to load video. Please try refreshing.</p>
+                </div>
+            `;
+        };
+
+        // Clean up resources when iframe is removed
+        const cleanup = () => {
+            observer.unobserve(iframe);
+            iframe.src = 'about:blank';
+            iframe.onerror = null;
+        };
+
+        // Observe iframe for cleanup when it's removed
+        new MutationObserver((mutations, obs) => {
+            if (!document.contains(iframe)) {
+                cleanup();
+                obs.disconnect();
+            }
+        }).observe(document.body, { childList: true, subtree: true });
+
+        container.appendChild(videoDiv);
+        observer.observe(iframe);
     });
 }
