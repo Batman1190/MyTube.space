@@ -514,3 +514,38 @@ h2 {
     height: 100%;
     border: none;
 }
+
+.sticky-search {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--bg-color);
+    padding: 10px;
+}
+
+/* Add mobile-specific adjustments */
+@media screen and (max-width: 768px) {
+    .header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .sticky-search {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    #search-container {
+        width: 100%;
+        max-width: none;
+    }
+
+    #search-input {
+        width: 100%;
+        max-width: none;
+    }
+}
