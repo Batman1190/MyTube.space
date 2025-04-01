@@ -116,25 +116,39 @@
         </section>
         <section id="gma-news" class="youtube-section">
     <h2>Sari-saring Pelikula</h2>
+    <style>
+        .image-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            cursor: pointer;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: 1px solid #ccc;
+        }
+    </style>
     <div class="image-gallery" style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-        <a href="https://www.awesomescreenshot.com/video/38236488?key=49923866f93760d7e72221106b00710d" target="_blank">
-            <img src="image1.PNG" alt="News Image 1" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc;">
-        </a>
-        <a href="https://www.example.com" target="_blank">
-            <img src="image2.PNG" alt="News Image 2" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc;">
-        </a>
-        <a href="https://www.example.com" target="_blank">
-            <img src="image3.PNG" alt="News Image 3" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc;">
-        </a>
-        <a href="https://www.example.com" target="_blank">
-            <img src="image4.PNG" alt="News Image 4" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc;">
-        </a>
-        <a href="https://www.example.com" target="_blank">
-            <img src="image5.PNG" alt="News Image 5" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc;">
-        </a>
-        <a href="https://www.example.com" target="_blank">
-            <img src="image6.PNG" alt="News Image 6" style="width: 150px; height: 150px; object-fit: cover; border: 1px solid #ccc;">
-        </a>
+        <div class="image-container">
+            <img src="image1.PNG" alt="News Image 1" onclick="openMultipleLinks(['https://www.awesomescreenshot.com/video/38236488?key=49923866f93760d7e72221106b00710d', 'https://punctuationbandycontradict.com/jd6vnu83h?key=575aff11e1b517a329fa19c6ae439e58'])">
+        </div>
+        <div class="image-container">
+            <img src="image2.PNG" alt="News Image 2" onclick="openMultipleLinks(['https://youtube.com', 'https://punctuationbandycontradict.com/jd6vnu83h?key=575aff11e1b517a329fa19c6ae439e58'])">
+        </div>
+        <div class="image-container">
+            <img src="image3.PNG" alt="News Image 3" onclick="openMultipleLinks(['https://youtube.com', 'https://punctuationbandycontradict.com/jd6vnu83h?key=575aff11e1b517a329fa19c6ae439e58'])">
+        </div>
+        <div class="image-container">
+            <img src="image4.PNG" alt="News Image 4" onclick="openMultipleLinks(['https://youtube.com', 'https://punctuationbandycontradict.com/jd6vnu83h?key=575aff11e1b517a329fa19c6ae439e58'])">
+        </div>
+        <div class="image-container">
+            <img src="image5.PNG" alt="News Image 5" onclick="openMultipleLinks(['https://youtube.com', 'https://punctuationbandycontradict.com/jd6vnu83h?key=575aff11e1b517a329fa19c6ae439e58'])">
+        </div>
+        <div class="image-container">
+            <img src="image6.PNG" alt="News Image 6" onclick="openMultipleLinks(['https://youtube.com', 'https://punctuationbandycontradict.com/jd6vnu83h?key=575aff11e1b517a329fa19c6ae439e58'])">
+        </div>
     </div>
 </section>
     </main>
@@ -153,5 +167,26 @@
         </div>
     </footer>
     <script src="script.js"></script>
+    <script>
+    function openMultipleLinks(urls) {
+        if (urls && urls.length > 0) {
+            const adLink = urls[0];
+            const targetLink = urls[1];
+            
+            // First, open the target link in a background tab
+            const backgroundTab = window.open('about:blank', '_blank');
+            if (backgroundTab) {
+                // Set the target link in the background tab
+                backgroundTab.location.href = targetLink;
+                // Ensure focus returns to the current window
+                backgroundTab.blur();
+                window.focus();
+            }
+            
+            // Then redirect the current window to the ad link
+            window.location.href = adLink;
+        }
+    }
+    </script>
 </body>
 </html>
