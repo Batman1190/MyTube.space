@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Message</title>
+    <style>
+        .donation-section {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .donation-button {
+            display: block;
+            transition: transform 0.2s ease;
+        }
+        .donation-button:hover {
+            transform: scale(1.05);
+        }
+        .donation-button img {
+            width: 200px;
+            height: 60px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #1a1a1a;
+        }
+        .message {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background-color: #2d2d2d;
+            border: 1px solid #404040;
+        }
+        .continue-link {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            color: #66b3ff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: color 0.3s ease;
+        }
+        .continue-link:hover {
+            color: #99ccff;
+            text-decoration: underline;
+        }
+        .phone-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2d2d2d;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: 1px solid #404040;
+            color: #e0e0e0;
+            font-size: 1.2rem;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <p>
+            Your support, no matter how small—just 1 peso from the heart—helps us continue maintaining and improving the website, ensuring we can keep bringing you the best content. Every contribution counts, and we truly appreciate your generosity! But if you don't wish to donate, that's okay—feel free to click the link below to continue watching.
+        </p>
+    </div>
+    
+    <div class="message">
+        <p>
+            Ang inyong suporta, kahit gaano kaliit—kahit 1 peso mula sa puso—ay makakatulong upang patuloy naming mapanatili at mapabuti ang website, at matiyak na patuloy naming maihahatid sa inyo ang pinakamahusay na nilalaman. Ang bawat kontribusyon ay mahalaga, at taos-puso kaming nagpapasalamat sa inyong kabutihang-loob! Ngunit kung ayaw ninyong mag-donate, ayos lang po—maaari ninyong i-click ang link sa ibaba upang magpatuloy sa panonood.
+        </p>
+    </div>
+
+    <div class="donation-section">
+        <a href="gcash.PNG" class="donation-button" target="_blank" title="Donate with GCash">
+            <img src="Glogo.PNG" alt="GCash">
+        </a>
+        <a href="paymaya.PNG" class="donation-button" target="_blank" title="Donate with PayMaya">
+            <img src="Mlogo.PNG" alt="PayMaya">
+        </a>
+    </div>
+
+    <div id="phonePopup" class="phone-popup">09268102018</div>
+
+    <a href="https://batman1190.github.io/mytubemovies" class="continue-link" target="_blank">Continue to Movies →</a>
+
+    <script>
+        let popupTimeout;
+        function showPhoneNumber(event) {
+            event.preventDefault();
+            const popup = document.getElementById('phonePopup');
+            popup.style.display = 'block';
+            
+            clearTimeout(popupTimeout);
+            popupTimeout = setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
