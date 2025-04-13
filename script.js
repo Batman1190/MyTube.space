@@ -1,4 +1,4 @@
-const youtubeApiKey = 'AIzaSyA43RzI_erBWgxjiYcHcuT5DcrLN9tbORk'; // YouTube API Key
+const youtubeApiKey = 'AIzaSyBi9XME_hKIdmFyKT2sX9Qzq-YW4uwaPGc'; // YouTube API Key
 
 document.getElementById('search-button').addEventListener('click', () => {
     const searchTerm = document.getElementById('search-input').value;
